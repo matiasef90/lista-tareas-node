@@ -6,6 +6,7 @@ const  Tareas = require('./models/tareas');
 
     const listaTareas = new Tareas();
     let option;
+    let choices;
     do {
         console.clear();
         console.log(`
@@ -23,9 +24,14 @@ const  Tareas = require('./models/tareas');
             case 2:
                 listaTareas.listaTareasConsola;
                 break;
+            case 5:
+                choices = listaTareas.lista.map((el) => ({ name: el.description, value: el.id, checked: false }));
+                const ids = await list('checkbox', choices, 'Seleccione la tarea(s) completadas');
+                console.log(ids);
+                break;
             case 6:
-                const choices = listaTareas.lista.map((el) => ({ name: el.description, value: el.id }));
-                const id = await list(choices, 'Seleccione la tarea a Eliminar');
+                choices = listaTareas.lista.map((el) => ({ name: el.description, value: el.id }));
+                const id = await list('list', choices, 'Seleccione la tarea a Eliminar');
                 listaTareas.eliminarTarea(id);
             default:
                 break;

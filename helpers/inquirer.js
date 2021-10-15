@@ -44,9 +44,9 @@ const input = async (mensaje) => {
     return text;
 }
 
-const list = async(choices, message) => {
+const list = async( type, choices, message) => {
     const question = {
-        type: 'list',
+        type: type,
         name: 'response',
         message: message,
         choices: choices,
