@@ -35,6 +35,10 @@ const input = async (mensaje) => {
         type: 'input',
         name: 'text',
         message: mensaje,
+        validate: (msg) => {
+            if(!msg) return 'Debe ingresar una tarea valida';
+            return true;
+        },
     }
     const { text } = await inquirer.prompt(question);
     return text;

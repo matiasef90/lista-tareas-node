@@ -21,7 +21,7 @@ const  Tareas = require('./models/tareas');
                 listaTareas.agregarTarea(tarea);
                 break;
             case 2:
-                console.log(listaTareas.listaTareasConsola);
+                listaTareas.listaTareasConsola;
                 break;
             case 6:
                 const choices = listaTareas.lista.map((el) => ({ name: el.description, value: el.id }));

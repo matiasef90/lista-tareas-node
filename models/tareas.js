@@ -3,7 +3,7 @@ require('colors');
 class Tareas {
     listaTareas = [];
     agregarTarea(tarea) {
-        this.listaTareas.push(tarea);
+        if(tarea) this.listaTareas.push(tarea);
     };
     get lista() {
         return this.listaTareas;
