@@ -1,12 +1,17 @@
 require('colors');
 
 class Tareas {
-    listaTareas = [];
+    constructor (){
+        this.listaTareas = [];
+    }
     agregarTarea(tarea) {
         if(tarea) this.listaTareas.push(tarea);
     };
     get lista() {
         return this.listaTareas;
+    };
+    get listaPendientes() {
+            return this.listaTareas.filter((el) => el.state === false);
     };
     get listaTareasConsola() {
         this.listaTareas.forEach((el, index) => {
@@ -16,6 +21,13 @@ class Tareas {
             );
         });
     };
+    marcarCompletada(id) {
+        const tarea = this.listaTareas.find((el) => el.id === id)
+        this.eliminarTarea(id);
+        tarea.state = true;
+        this.listaTareas.push(tarea);
+
+    }
     eliminarTarea(id) {
         this.listaTareas = this.listaTareas.filter((el) => el.id !== id);
     }
