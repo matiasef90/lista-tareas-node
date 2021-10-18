@@ -1,19 +1,17 @@
 const { menu, pausa, input, list } = require('./helpers/inquirer');
 const Tarea = require('./models/tarea');
 const  Tareas = require('./models/tareas');
+const fs = require('fs');
 
 (async() => {
-
+    const tareasGuardadas = JSON.parse(fs.readFileSync('./db/listaTareas.txt'));
     const listaTareas = new Tareas();
+    tareasGuardadas.forEach((el) => listaTareas.agregarTarea(el));
     let option;
     let choices;
     do {
         console.clear();
-        console.log(`
-        ${'============================================='.green}
-        ${'            LISTA   DE   TAREAS              '.white}
-        ${'============================================='.green}
-        `);
+        console.log(`${'=============================================\n'.green}${'            LISTA   DE   TAREAS              \n'.white}${'============================================='.green}`);
         option = await menu();
         switch (option) {
             case 1:
@@ -31,11 +29,12 @@ const  Tareas = require('./models/tareas');
                 listaTareas.tareasPendientes;
                 break;
             case 5:
-                choices = listaTareas.listaPendientes.map((el, index) => ({
-                    name: `${index + 1}. ${el.description}`,
-                    value: el.id,
-                    checked: false,
-                }));
+                choices = listaTareas.lista.filter((el) => el.state === false)
+                    .map((el, index) => ({
+                        name: `${index + 1}. ${el.description}`,
+                        value: el.id,
+                        checked: false,
+                    }));
                 const ids = await list('checkbox', choices, 'Seleccione la tarea(s) completadas');
                 ids.forEach((el) => {listaTareas.marcarCompletada(el)});
                 break;
@@ -48,5 +47,6 @@ const  Tareas = require('./models/tareas');
         }
         if(option !== 0) await pausa();
     } while (option !== 0);
+    fs.writeFileSync('./db/listaTareas.txt', JSON.stringify(listaTareas.lista));
     console.clear();
 })();

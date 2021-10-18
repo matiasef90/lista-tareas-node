@@ -23,19 +23,21 @@ class Tareas {
         }
     };
     get tareasCompletadas() {
-        const tareas = this.listaTareas.filter((el) => el.state === true);
-        if(tareas.length !== 0) {
-            tareas.forEach((el, index) => `${index + 1}`.blue + el.description.white);
+        const completadas = this.listaTareas.filter((el) => el.state === true);
+        console.log('');
+        if(completadas.length !== 0) {
+            completadas.forEach((el, index) => console.log(`${index + 1}. `.blue + el.description.white));
         } else {
             console.log('No hay tareas\n');
         }
     }
     get tareasPendientes() {
-        const tareas = this.listaTareas.filter((el) => el.state === false);
-        if(tareas.length !== 0) {
-            tareas.forEach((el, index) => `${index + 1}`.blue + el.description.white);
+        const pendientes = this.listaTareas.filter((el) => el.state === false);
+        console.log('');
+        if(pendientes.length !== 0) {
+            pendientes.forEach((el, index) => console.log(`${index + 1}. `.blue + el.description.white));
         } else {
-            console.log('No hay tareas\n');
+            console.log('No hay tareas');
         }
     }
     marcarCompletada(id) {
