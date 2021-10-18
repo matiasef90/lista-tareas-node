@@ -25,13 +25,10 @@ const  Tareas = require('./models/tareas');
                 listaTareas.listaTareasConsola;
                 break;
             case 3:
+                listaTareas.tareasCompletadas;
                 break;
             case 4:
-                choices = listaTareas.listaPendientes.map((el, index) => ({
-                    name: `${index + 1}. ${el.description}`,
-                    value: el.id,
-                }));
-                await list('list', choices, 'Tareas pendientes');
+                listaTareas.tareasPendientes;
                 break;
             case 5:
                 choices = listaTareas.listaPendientes.map((el, index) => ({

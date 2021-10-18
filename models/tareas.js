@@ -10,17 +10,34 @@ class Tareas {
     get lista() {
         return this.listaTareas;
     };
-    get listaPendientes() {
-            return this.listaTareas.filter((el) => el.state === false);
-    };
     get listaTareasConsola() {
-        this.listaTareas.forEach((el, index) => {
-            const estado = el.state ? 'Completada'.green : 'Pendiente'.red;
-            console.log(
-                `${index + 1}. `.green + `${el.description} :: ` + estado
-            );
-        });
+        if(this.listaTareas.length !== 0){
+            this.listaTareas.forEach((el, index) => {
+                const estado = el.state ? 'Completada'.green : 'Pendiente'.red;
+                console.log(
+                    `${index + 1}. `.blue + `${el.description} :: `.white + estado
+                );
+            });
+        } else {
+            console.log('No hay tareas\n');
+        }
     };
+    get tareasCompletadas() {
+        const tareas = this.listaTareas.filter((el) => el.state === true);
+        if(tareas.length !== 0) {
+            tareas.forEach((el, index) => `${index + 1}`.blue + el.description.white);
+        } else {
+            console.log('No hay tareas\n');
+        }
+    }
+    get tareasPendientes() {
+        const tareas = this.listaTareas.filter((el) => el.state === false);
+        if(tareas.length !== 0) {
+            tareas.forEach((el, index) => `${index + 1}`.blue + el.description.white);
+        } else {
+            console.log('No hay tareas\n');
+        }
+    }
     marcarCompletada(id) {
         const tarea = this.listaTareas.find((el) => el.id === id)
         this.eliminarTarea(id);
