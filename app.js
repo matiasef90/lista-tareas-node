@@ -4,9 +4,12 @@ const  Tareas = require('./models/tareas');
 const fs = require('fs');
 
 (async() => {
-    const tareasGuardadas = JSON.parse(fs.readFileSync('./db/listaTareas.txt'));
+    const pathTareas= fs.existsSync('./db/listaTareas.txt');
     const listaTareas = new Tareas();
-    tareasGuardadas.forEach((el) => listaTareas.agregarTarea(el));
+    if(pathTareas) {
+        const tareasGuardadas = JSON.parse(fs.readFileSync('./db/listaTareas.txt'));
+        tareasGuardadas.forEach((el) => listaTareas.agregarTarea(el));
+    }
     let option;
     let choices;
     do {
